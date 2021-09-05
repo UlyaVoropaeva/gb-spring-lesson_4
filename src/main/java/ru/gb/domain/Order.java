@@ -12,6 +12,7 @@ public class Order {
     public Order() {
     }
 
+    
     public Order(int id, LocalDate date, List<Product> products, float cost) {
         this.id = id;
         this.date = date;

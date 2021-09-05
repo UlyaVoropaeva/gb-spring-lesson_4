@@ -39,5 +39,6 @@ public class ProductController {
     public List<Product> save(@RequestBody Product product) {
         repository.add(product);
         return repository.findAll();
+
     }
 }
