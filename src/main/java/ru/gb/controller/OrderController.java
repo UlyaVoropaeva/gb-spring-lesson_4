@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.domain.Order;
 import ru.gb.repository.OrderRepository;
 
-
 import java.util.List;
 
 @Controller

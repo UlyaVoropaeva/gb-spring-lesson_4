@@ -38,7 +38,6 @@ public class ProductRepository {
         this.products.remove(product);
     }
 
-
     @Override
     public String toString() {
         return "ProductRepository{" +
