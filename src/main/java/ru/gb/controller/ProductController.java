@@ -40,5 +40,4 @@ public class ProductController {
         repository.add(product);
         return repository.findAll();
     }
-
 }
