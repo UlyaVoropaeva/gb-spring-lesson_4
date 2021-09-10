@@ -1,43 +1,50 @@
 package ru.gb.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.dao.ProductDao;
 import ru.gb.domain.Product;
-import ru.gb.repository.ProductRepository;
+
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/products")
+@RestController
+@RequestMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
 
-    private final ProductRepository repository;
 
-    public ProductController(ProductRepository repository) {
-        this.repository = repository;
+    private ProductDao productDao;
+
+    public ProductController(ProductDao productDao){
+        this.productDao =productDao;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping()
     @ResponseBody
     public List<Product> findAll() {
-        return repository.findAll();
+        return productDao.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping( "/{id}")
     @ResponseBody
-    public Product findById(@PathVariable int id) throws Exception {
+    public Product findById(@PathVariable Long id) throws Exception {
 
-        return repository.findById(id).orElseThrow(()-> new Exception());
+        return productDao.findById(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable int id) throws Exception {
-        repository.remove(id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) throws Exception {
+        productDao.deleteById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping()
+    @ResponseBody
     public List<Product> save(@RequestBody Product product) {
-        repository.add(product);
-        return repository.findAll();
+        productDao.saveOrUpdate(product);
+        return productDao.findAll();
+
     }
 }

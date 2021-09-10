@@ -1,20 +1,30 @@
 package ru.gb.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "PRODUCT")
+
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name", length = 50)
     private String name;
-    private float price;
+    @Column(name = "price")
+    private int price;
 
     public Product() {
     }
 
-    public Product(int id, String name, float price) {
+    public Product(Long id, String name, int price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
@@ -22,7 +32,29 @@ public class Product {
         return name;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
 }
